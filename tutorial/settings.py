@@ -87,9 +87,17 @@ ROBOTSTXT_OBEY = True
 # HTTPCACHE_DIR = 'httpcache'
 # HTTPCACHE_IGNORE_HTTP_CODES = []
 # HTTPCACHE_STORAGE = 'scrapy.extensions.httpcache.FilesystemCacheStorage'
-ITEM_PIPELINES = {'tutorial.pipelines.CurrencyPipeline': 300}
+ITEM_PIPELINES = {'tutorial.pipelines.Pipeline': 1}
 
 MONGODB_SERVER = "localhost"
 MONGODB_PORT = 27017
 MONGODB_DB = "resultsScrapy"
 MONGODB_COLLECTION = "questions"
+DATABASE = {
+    'drivername': 'postgres',
+    'host': 'localhost',
+    'port': '5432',
+    'username': 'postgres',
+    'password': 'admin',
+    'database': 'testdb'
+}

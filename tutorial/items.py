@@ -9,8 +9,8 @@ from scrapy.item import Item, Field
 
 
 class TutorialItem(Item):
-    name = Field()
+    title = Field()
     price = Field()
-    place = Field()
+    location = Field()
     date = Field()
     time = Field()
