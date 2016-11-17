@@ -25,12 +25,12 @@ class WeLoveBudapest(scrapy.Spider):
             fmt = "%m/%d/%Y"
             try:
                 new_date = datetime.strptime(new_date, fmt)
-                item['date'] = new_date
+                item['start_date'] = new_date
             except ValueError, v:
                 if len(v.args) > 0 and v.args[0].startswith('unconverted data remains: '):
                     fmt = "%m/%d/%Y %I:%M %p"
                     new_date = datetime.strptime(new_date, fmt)
-                    item['time'] = new_date
+                    item['start_time'] = new_date
                 else:
                     raise v
             yield item
