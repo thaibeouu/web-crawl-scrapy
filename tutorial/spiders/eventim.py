@@ -30,7 +30,7 @@ class QuotesSpider(scrapy.Spider):
         item = TutorialItem()
         item['title'] = response.xpath(
             '//h2[@class="page-name--event block--auto"]/a/text()').extract_first()
-        item['price'] = response.xpath('./h2[@itemprop="name"]/span[@class="price"]/text()').extract_first()
+        item['price'] = "From " + response.xpath('//section[@itemprop="offers" and position()=last()]/div/p/em/span/text()').extract_first()
         item['location'] = response.xpath('//span[@class="event-data--venue block--auto"]/text()').extract_first()
         time_string = response.xpath('//meta[@itemprop="startDate"]/@content').extract_first()
         time_format = "%Y-%m-%dT%H:%M" #isoformat
