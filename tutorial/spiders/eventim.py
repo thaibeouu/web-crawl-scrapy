@@ -3,6 +3,7 @@ from datetime import datetime
 import scrapy
 
 from tutorial.items import TutorialItem
+# python /usr/local/lib/python2.7/dist-packages/scrapy/cmdline.py crawl eventim
 
 
 class QuotesSpider(scrapy.Spider):
