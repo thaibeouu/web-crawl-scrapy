@@ -9,11 +9,14 @@ nltk.download("stopwords")
 
 
 class Category:
-    Concert, Exhibition, Festival, Sport = range(1, 5)
-
+    Culinary, Sports, Attractions, Concerts, Festivals = range(1, 6)
 
 regex = re.compile('[%s]' % re.escape(string.punctuation))
 
+
+def convert_cat(text):
+    return str(text).replace('Arts and Music', '4').replace('Concerts', '4').replace('Food and Drink', '1').replace('Sports', '2').\
+        replace('National Holiday', '3').replace('Exhibitions', '3').replace('Festivals', '5')
 
 def cleanup(text):
     # tokenized_docs = [word.encode('utf-8') for word in text]

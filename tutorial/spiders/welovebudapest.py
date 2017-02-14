@@ -1,6 +1,6 @@
 from datetime import datetime
-from common import Category
 
+import common
 import scrapy
 from scrapy import Selector
 
@@ -15,11 +15,13 @@ class WeLoveBudapest(scrapy.Spider):
     start_urls = [
         'http://welovebudapest.com/Ajax/Events?limit=99&filter={"EventTypes":[],"S":null,"E":null,"OnlyFree":false,"PriceRange":[0,0],"ShownOn":[0,2]}'
     ]
+    base_url = 'http://welovebudapest.com'
 
     def parse(self, response):
         for site in Selector(response).xpath('//div[@itemscope="itemscope"]'):
+            link = site.xpath('./h2[@itemprop="name"]/a/@href').extract_first()
+            absolute_url = self.base_url + link
             item = TutorialItem()
-            item['category'] = Category.Concert
             item['title'] = site.xpath('./h2[@itemprop="name"]/a/text()').extract_first()
             item['price'] = site.xpath('./h2[@itemprop="name"]/span[@class="price"]/text()').extract_first()
             location = site.xpath(
@@ -58,4 +60,13 @@ class WeLoveBudapest(scrapy.Spider):
                         item['end_time'] = end_time
                     else:
                         raise v
-            yield item
+            yield scrapy.Request(absolute_url, callback=self.get_description, meta={'item': item})
+            # yield item
+
+    @staticmethod
+    def get_description(response):
+        base_item = response.meta['item']
+        raw_description_list = response.xpath('//p[@itemprop="description"]/text()').extract()
+        base_item['description'] = "".join(str(x) for x in filter(None, common.cleanup(raw_description_list)))
+        return base_item
+
