@@ -67,6 +67,7 @@ class WeLoveBudapest(scrapy.Spider):
     def get_description(response):
         base_item = response.meta['item']
         raw_description_list = response.xpath('//p[@itemprop="description"]/text()').extract()
-        base_item['description'] = "".join(str(x) for x in filter(None, common.cleanup(raw_description_list)))
+        base_item['description'] = "".join(str(x) for x in filter(None, common.cleanup(raw_description_list)))\
+            .replace("\'", "").replace(",", "").replace("[", "").replace("]", " ").replace("  ", " ")
         return base_item
 

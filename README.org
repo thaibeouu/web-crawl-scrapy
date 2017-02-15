@@ -3,5 +3,6 @@
 *** Dear Lecturer
 - A.k.a /the only one/ who'd read those texts.
 - In case you want to check for yourself, code in this repo is totally reproducible, only prerequisite is =scrapy= for Python 2.
+- Well you may want to install =PostgreSQL= too.
 - Last but not least, please have a nice day.
 
