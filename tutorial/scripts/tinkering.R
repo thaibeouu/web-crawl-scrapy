@@ -16,8 +16,8 @@ docs_training <- tm_map(docs_training, PlainTextDocument)
 data_frame <- data.frame(text = sapply(docs_training, paste, collapse = " "), stringsAsFactors = FALSE)
 #trace("create_matrix", edit=T)
 dt_matrix <- create_matrix(data_frame)
-container <- create_container(dt_matrix, data$category, trainSize=1:7, virgin=FALSE)
-model <- train_model(container, "SVM", kernel="linear", cost=1)
+container <- create_container(dt_matrix, data$category, trainSize=1:length(docs_training), virgin=FALSE)
+model <- train_model(container, "SVM")
 
 #testing
 data_test <- read.csv(paste(dataDirectory, 'data_R_test.csv', sep=""), header = TRUE)
